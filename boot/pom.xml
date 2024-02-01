@@ -6,9 +6,80 @@
     <parent>
         <groupId>com.cbxjl</groupId>
         <artifactId>hotel</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
-
+    <packaging>jar</packaging>
     <groupId>com.cbxjl</groupId>
     <artifactId>boot</artifactId>
+    <description>
+        web服务入口
+    </description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- web 容器使用 undertow 性能更强 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
+
+        <!-- SpringBoot 拦截器 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <!-- sql性能分析插件 -->
+        <dependency>
+            <groupId>p6spy</groupId>
+            <artifactId>p6spy</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!-- spring-boot-devtools -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional> <!-- 表示依赖不会传递 -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.cbxjl</groupId>
+            <artifactId>hotel-manager</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.cbxjl</groupId>
+            <artifactId>hotel-user</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.cbxjl</groupId>
+            <artifactId>system</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+    </dependencies>
 </project>

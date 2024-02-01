@@ -8,13 +8,13 @@
         <artifactId>hotel</artifactId>
         <version>1.0</version>
     </parent>
-    <version>1.0</version>
-    <artifactId>hotel-user</artifactId>
 
+    <artifactId>system</artifactId>
     <dependencies>
         <dependency>
             <groupId>com.cbxjl</groupId>
             <artifactId>common</artifactId>
         </dependency>
     </dependencies>
+
 </project>

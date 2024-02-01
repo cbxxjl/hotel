@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cbxjl.hotel.common.core.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.cbxjl.hotel.common.core.domain.entity.User">
+    <!--@mbg.generated-->
+    <!--@Table `user`-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_type" jdbcType="BOOLEAN" property="userType" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="sex" jdbcType="BOOLEAN" property="sex" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="status" jdbcType="BOOLEAN" property="status" />
+    <result column="del_flag" jdbcType="BOOLEAN" property="delFlag" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, user_name, user_type, phone, sex, avatar, account, `password`, `status`, del_flag, 
+    create_by, create_time, update_by, update_time
+  </sql>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update `user`
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="user_name = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.userName,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="user_type = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.userType,jdbcType=BOOLEAN}
+        </foreach>
+      </trim>
+      <trim prefix="phone = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.phone,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="sex = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.sex,jdbcType=BOOLEAN}
+        </foreach>
+      </trim>
+      <trim prefix="avatar = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.avatar,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="account = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.account,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`password` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.password,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`status` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.status,jdbcType=BOOLEAN}
+        </foreach>
+      </trim>
+      <trim prefix="del_flag = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.delFlag,jdbcType=BOOLEAN}
+        </foreach>
+      </trim>
+      <trim prefix="create_by = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.createBy,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.createTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="update_by = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.updateBy,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="update_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.updateTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=BIGINT}
+    </foreach>
+  </update>
+  <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into `user`
+    (user_name, user_type, phone, sex, avatar, account, `password`, `status`, del_flag, 
+      create_by, create_time, update_by, update_time)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.userName,jdbcType=VARCHAR}, #{item.userType,jdbcType=BOOLEAN}, #{item.phone,jdbcType=VARCHAR}, 
+        #{item.sex,jdbcType=BOOLEAN}, #{item.avatar,jdbcType=VARCHAR}, #{item.account,jdbcType=VARCHAR}, 
+        #{item.password,jdbcType=VARCHAR}, #{item.status,jdbcType=BOOLEAN}, #{item.delFlag,jdbcType=BOOLEAN}, 
+        #{item.createBy,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateBy,jdbcType=VARCHAR}, 
+        #{item.updateTime,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+</mapper>

@@ -1,0 +1,37 @@
+2024-01-26 17:07:57.284  INFO 2544 [background-preinit] o.h.validator.internal.util.Version      21   : HV000001: Hibernate Validator 6.2.5.Final
+2024-01-26 17:07:57.287  INFO 2544 [restartedMain] com.cbxjl.hotel.HotelApplication         55   : Starting HotelApplication using Java 1.8.0_91 on LAPTOP-LG38H01J with PID 2544 (D:\FinalWork\hotel\boot\target\classes started by 谢金伦 in D:\FinalWork\hotel)
+2024-01-26 17:07:57.288  INFO 2544 [restartedMain] com.cbxjl.hotel.HotelApplication         631  : No active profile set, falling back to 1 default profile: "default"
+2024-01-26 17:07:57.320  INFO 2544 [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor 255  : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-01-26 17:07:57.321  INFO 2544 [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor 255  : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-01-26 17:07:58.088  INFO 2544 [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate 262  : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-01-26 17:07:58.090  INFO 2544 [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate 132  : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-01-26 17:07:58.109  INFO 2544 [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate 201  : Finished Spring Data repository scanning in 5 ms. Found 0 Redis repository interfaces.
+2024-01-26 17:07:58.369  INFO 2544 [restartedMain] trationDelegate$BeanPostProcessorChecker 376  : Bean 'lock4j-com.baomidou.lock.spring.boot.autoconfigure.Lock4jProperties' of type [com.baomidou.lock.spring.boot.autoconfigure.Lock4jProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2024-01-26 17:07:58.370  INFO 2544 [restartedMain] trationDelegate$BeanPostProcessorChecker 376  : Bean 'com.baomidou.lock.spring.boot.autoconfigure.LockAutoConfiguration' of type [com.baomidou.lock.spring.boot.autoconfigure.LockAutoConfiguration$$EnhancerBySpringCGLIB$$1fa0c837] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2024-01-26 17:07:58.387  INFO 2544 [restartedMain] trationDelegate$BeanPostProcessorChecker 376  : Bean 'lockKeyBuilder' of type [com.baomidou.lock.DefaultLockKeyBuilder] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2024-01-26 17:07:58.388  INFO 2544 [restartedMain] trationDelegate$BeanPostProcessorChecker 376  : Bean 'lockFailureStrategy' of type [com.baomidou.lock.DefaultLockFailureStrategy] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2024-01-26 17:07:58.389  INFO 2544 [restartedMain] trationDelegate$BeanPostProcessorChecker 376  : Bean 'lockInterceptor' of type [com.baomidou.lock.aop.LockInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2024-01-26 17:07:58.390  INFO 2544 [restartedMain] trationDelegate$BeanPostProcessorChecker 376  : Bean 'lockAnnotationAdvisor' of type [com.baomidou.lock.aop.LockAnnotationAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2024-01-26 17:07:58.641  INFO 2544 [restartedMain] io.undertow.servlet                      389  : Initializing Spring embedded WebApplicationContext
+2024-01-26 17:07:58.642  INFO 2544 [restartedMain] w.s.c.ServletWebServerApplicationContext 292  : Root WebApplicationContext: initialization completed in 1321 ms
+2024-01-26 17:07:59.053  INFO 2544 [restartedMain] org.redisson.Version                     41   : Redisson 3.13.6
+2024-01-26 17:07:59.901  INFO 2544 [redisson-netty-2-14] o.r.c.pool.MasterPubSubConnectionPool    167  : 1 connections initialized for localhost/127.0.0.1:6379
+2024-01-26 17:07:59.907  INFO 2544 [redisson-netty-2-20] o.r.c.pool.MasterConnectionPool          167  : 24 connections initialized for localhost/127.0.0.1:6379
+2024-01-26 17:08:01.731  INFO 2544 [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       59   : LiveReload server is running on port 35729
+2024-01-26 17:08:01.737  INFO 2544 [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      58   : Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-01-26 17:08:01.774  INFO 2544 [restartedMain] io.undertow                              120  : starting server: Undertow - 2.2.25.Final
+2024-01-26 17:08:01.778  INFO 2544 [restartedMain] org.xnio                                 95   : XNIO version 3.8.7.Final
+2024-01-26 17:08:01.783  INFO 2544 [restartedMain] org.xnio.nio                             58   : XNIO NIO Implementation Version 3.8.7.Final
+2024-01-26 17:08:01.805  INFO 2544 [restartedMain] org.jboss.threads                        52   : JBoss Threads version 3.1.0.Final
+2024-01-26 17:08:01.832  INFO 2544 [restartedMain] o.s.b.w.e.undertow.UndertowWebServer     119  : Undertow started on port(s) 8080 (http)
+2024-01-26 17:08:01.846  INFO 2544 [restartedMain] com.cbxjl.hotel.HotelApplication         61   : Started HotelApplication in 4.942 seconds (JVM running for 6.642)
+2024-01-26 17:08:01.849  INFO 2544 [restartedMain] com.cbxjl.hotel.HotelApplication         16   : 启动成功
+2024-01-26 17:08:03.386  INFO 2544 [RMI TCP Connection(3)-10.8.0.18] io.undertow.servlet                      389  : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-01-26 17:08:03.387  INFO 2544 [RMI TCP Connection(3)-10.8.0.18] o.s.web.servlet.DispatcherServlet        525  : Initializing Servlet 'dispatcherServlet'
+2024-01-26 17:08:03.388  INFO 2544 [RMI TCP Connection(3)-10.8.0.18] o.s.web.servlet.DispatcherServlet        547  : Completed initialization in 1 ms
+2024-01-26 17:08:03.389  INFO 2544 [RMI TCP Connection(2)-10.8.0.18] com.zaxxer.hikari.HikariDataSource       110  : HikariPool-1 - Starting...
+2024-01-26 17:08:03.730  INFO 2544 [RMI TCP Connection(2)-10.8.0.18] com.zaxxer.hikari.HikariDataSource       123  : HikariPool-1 - Start completed.
+2024-01-26 17:10:43.319  INFO 2544 [SpringApplicationShutdownHook] io.undertow                              259  : stopping server: Undertow - 2.2.25.Final
+2024-01-26 17:10:43.324  INFO 2544 [SpringApplicationShutdownHook] io.undertow.servlet                      389  : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-01-26 17:10:43.349  INFO 2544 [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       350  : HikariPool-1 - Shutdown initiated...
+2024-01-26 17:10:43.357  INFO 2544 [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       352  : HikariPool-1 - Shutdown completed.

@@ -1,0 +1,2 @@
+2024-01-26 17:07:58.190  WARN 2544 [restartedMain] o.m.s.mapper.ClassPathMapperScanner      44   : No MyBatis mapper was found in '[com.cbxjl.hotel]' package. Please check your configuration.
+2024-01-26 17:07:58.625  WARN 2544 [restartedMain] io.undertow.websockets.jsr               68   : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used

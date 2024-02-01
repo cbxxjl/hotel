@@ -1,13 +1,19 @@
 package com.cbxjl.hotel;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup;
 
 @SpringBootApplication
+@Slf4j
 public class HotelApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(HotelApplication.class, args);
+        SpringApplication application = new SpringApplication(HotelApplication.class);
+        application.setApplicationStartup(new BufferingApplicationStartup(2048));
+        application.run(args);
+        log.info("启动成功");
     }
 
 }
