@@ -37,7 +37,7 @@ public class CaptchaService {
     /**
      * 生成验证码
      *
-     * @param key  验证码 键
+     * @param key 验证码 键
      */
     public AbstractCaptcha buildCaptcha(String key) {
         // 验证码类型
@@ -49,6 +49,7 @@ public class CaptchaService {
         captcha.setGenerator(codeGenerator);
         captcha.createCode();
         String code = captcha.getCode();
+        log.info("验证码：{}", code);
         if (isMath) {
             ExpressionParser parser = new SpelExpressionParser();
             Expression exp = parser.parseExpression(StringUtils.remove(code, "="));

@@ -1,19 +1,22 @@
 package com.cbxjl.hotel.system.service;
 
+import cn.dev33.satoken.context.SaHolder;
+import cn.dev33.satoken.context.model.SaStorage;
 import cn.dev33.satoken.secure.BCrypt;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.ObjectUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.cbxjl.hotel.common.constant.CacheConstants;
-import com.cbxjl.hotel.common.core.domain.dos.UserDO;
-import com.cbxjl.hotel.common.core.domain.dto.UserInfoDTO;
-import com.cbxjl.hotel.common.core.domain.entity.User;
-import com.cbxjl.hotel.common.core.mapper.UserMapper;
-import com.cbxjl.hotel.common.core.respository.UserRepository;
+import com.cbxjl.hotel.common.domain.LoginUser;
+import com.cbxjl.hotel.common.enums.UserType;
+import com.cbxjl.hotel.system.domain.dto.LoginUserInfoDTO;
 import com.cbxjl.hotel.common.exception.BusinessException;
 import com.cbxjl.hotel.common.utils.redis.RedisUtils;
+import dos.LoginUserDO;
+import facade.hotelManager.HotelManagerFacade;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -29,43 +32,55 @@ import java.util.function.Supplier;
 @Service
 @Slf4j
 public class LoginService {
+    public static final String LOGIN_USER_KEY = "loginUser";
+    public static final String USER_KEY = "userId";
     @Resource
-    private UserRepository userRepository;
-    private static final int MAXIMUMINPUT = 5;
+    private HotelManagerFacade hotelManagerFacade;
+
+    @Value("${default.maximumInput}")
+    private int MAXIMUMINPUT;
+
+
 
     /**
      * 密码登录
      *
      * @return token
      */
-    public String passwordLogin(String username, String password, String code, String uuid) {
+    public String passwordLogin(String account, String password, String code, String uuid) {
         //判断验证码
         validateCaptcha(code, uuid);
-        UserDO userDO = getUserByUserName(username);
+        LoginUserDO loginUserDO = getUserByAccount(account);
         //此处的密码采用函数式接口将明文和加密后的密文进行比较。并返回比较结果
-        checkLogin(username, () -> !BCrypt.checkpw(password, userDO.getPassword()), userDO);
+        checkLogin(account, () -> !BCrypt.checkpw(password, loginUserDO.getPassword()), loginUserDO);
         //登录
-        StpUtil.login(userDO.getId());
+        StpUtil.login(loginUserDO.getId());
+
+        //将通过id获取loginUser并存放到SaSession中，方便后续读取
+        Long userId = StpUtil.getLoginIdAsLong();
+        LoginUser loginUser = getLoginUser(userId);
+        StpUtil.getTokenSession().set(LOGIN_USER_KEY, loginUser);
+
         return StpUtil.getLoginIdAsString();
     }
 
     /**
      * 登录校验
      *
-     * @param username 用户名
-     * @param supplier 密码判断
-     * @param userDO     用户
+     * @param account     账号
+     * @param supplier    密码判断
+     * @param loginUserDO 当前登录用户
      */
-    private void checkLogin(String username, Supplier<Boolean> supplier, UserDO userDO) {
+    private void checkLogin(String account, Supplier<Boolean> supplier, LoginUserDO loginUserDO) {
         //登陆失败，键
-        String errorKey = CacheConstants.PWD_ERR_CNT_KEY + username;
+        String errorKey = CacheConstants.PWD_ERR_CNT_KEY + account;
 
         // 获取用户登录错误次数，默认为0
         int errorNumber = ObjectUtil.defaultIfNull(RedisUtils.getCacheObject(errorKey), 0);
         if (errorNumber >= MAXIMUMINPUT) {
             //冻结用户
-            userDO.setStatus(0);
-            userRepository.updateById(userDO);
+            loginUserDO.setStatus(0);
+            hotelManagerFacade.updateById(loginUserDO);
             RedisUtils.deleteObject(errorKey);
             throw new BusinessException("密码输入错误" + MAXIMUMINPUT + "次，账号冻结，请联系管理员");
         }
@@ -84,21 +99,21 @@ public class LoginService {
     }
 
     /**
-     * 根据用户名获取用户
+     * 根据账号获取用户
      *
-     * @param username 用户名
+     * @param account 用户名
      * @return 用户
      */
-    private UserDO getUserByUserName(String username) {
-        UserDO userDO = userRepository.getUserByUserName(username);
-        if (ObjectUtil.isEmpty(userDO)) {
-            log.error("用户不存在：{}", username);
-            throw new BusinessException("用户不存在:" + username);
-        } else if (userDO.getStatus() == 0) {
-            log.error("用户被冻结: {}", username);
-            throw new BusinessException("用户被冻结:" + username);
+    private LoginUserDO getUserByAccount(String account) {
+        LoginUserDO loginUserDO = hotelManagerFacade.getUserByAccount(account);
+        if (ObjectUtil.isEmpty(loginUserDO)) {
+            log.error("用户不存在：{}", account);
+            throw new BusinessException("用户不存在:" + account);
+        } else if (loginUserDO.getStatus() == 0) {
+            log.error("用户被冻结: {}", account);
+            throw new BusinessException("用户被冻结:" + account);
         }
-        return userDO;
+        return loginUserDO;
     }
 
     /**
@@ -126,8 +141,12 @@ public class LoginService {
      * @param userId 用户id
      * @return 用户信息dto
      */
-    public UserInfoDTO getLoginUser(Long userId) {
-        UserDO userDO = userRepository.getUserById(userId);
-        return userDO.doToInfo();
+    public LoginUser getLoginUser(Long userId) {
+        LoginUserDO loginUserDO = hotelManagerFacade.getUserById(userId);
+        LoginUser loginUser = new LoginUser();
+        BeanUtils.copyProperties(loginUserDO, loginUser);
+        loginUser.setUserTypeStr(UserType.getUserType(loginUser.getUserType()));
+
+        return loginUser;
     }
 }

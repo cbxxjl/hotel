@@ -14,12 +14,14 @@
         <module>common</module>
         <module>hotel-user</module>
         <module>system</module>
+        <module>client</module>
     </modules>
     <properties>
         <common.version>1.0</common.version>
         <hotel-user.version>1.0</hotel-user.version>
         <hotel-manager.version>1.0</hotel-manager.version>
         <system.version>1.0</system.version>
+        <client.version>1.0</client.version>
         <java.version>1.8</java.version>
         <spring-boot.version>2.7.13</spring-boot.version>
         <maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
@@ -43,6 +45,12 @@
             <groupId>com.cbxjl</groupId>
             <artifactId>common</artifactId>
             <version>${common.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.cbxjl</groupId>
+            <artifactId>client</artifactId>
+            <version>${client.version}</version>
         </dependency>
 
         <dependency>

@@ -2,10 +2,11 @@ package com.cbxjl.hotel.system.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.cbxjl.hotel.common.constant.Constants;
-import com.cbxjl.hotel.common.core.domain.dto.UserInfoDTO;
+import com.cbxjl.hotel.common.domain.LoginUser;
 import com.cbxjl.hotel.common.domain.R;
-import com.cbxjl.hotel.common.core.domain.dto.LoginBody;
+import com.cbxjl.hotel.common.domain.LoginBody;
 import com.cbxjl.hotel.system.service.LoginService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -20,17 +21,19 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/login")
+@Slf4j
 public class LoginController {
     @Resource
     private LoginService loginservice;
+
 
     //测试登录admin admin123
     @PostMapping("/passwordLogin")
     public R<Map<String, Object>> doLogin(@RequestBody LoginBody loginBody) {
         Map<String, Object> ajax = new HashMap<>();
-        String token = loginservice.passwordLogin(loginBody.getUsername(), loginBody.getPassword(), loginBody.getCode(), loginBody.getUuid());
+        String token = loginservice.passwordLogin(loginBody.getAccount(), loginBody.getPassword(), loginBody.getCode(), loginBody.getUuid());
+        log.info("登陆成功");
         ajax.put(Constants.TOKEN, token);
-
         return R.ok(ajax);
     }
 
@@ -40,9 +43,23 @@ public class LoginController {
      * @return 用户信息
      */
     @GetMapping("/getLoginEmployee")
-    public R<UserInfoDTO> getLoginEmployee() {
+    public R<LoginUser> getLoginEmployee() {
         Long userId = StpUtil.getLoginIdAsLong();
-        UserInfoDTO userInfoDTO = loginservice.getLoginUser(userId);
-        return R.ok(userInfoDTO);
+        LoginUser loginUser = loginservice.getLoginUser(userId);
+        log.info("当前登录用户信息：{}", loginUser);
+        return R.ok(loginUser);
+    }
+
+    /**
+     * 退出登录
+     *
+     * @param id 用户id
+     * @return 推出结果
+     */
+    @GetMapping("/logout/{id}")
+    private R<Void> logout(@PathVariable Long id) {
+        StpUtil.logout();
+        log.info("退出登录");
+        return R.ok();
     }
 }

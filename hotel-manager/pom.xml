@@ -16,5 +16,10 @@
             <groupId>com.cbxjl</groupId>
             <artifactId>common</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.cbxjl</groupId>
+            <artifactId>client</artifactId>
+        </dependency>
     </dependencies>
 </project>

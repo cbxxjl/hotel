@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cbxjl.hotel.manager.mapper.RoomStatisticsMapper">
+  <resultMap id="BaseResultMap" type="com.cbxjl.hotel.manager.core.entity.RoomStatistics">
+    <!--@mbg.generated-->
+    <!--@Table room_statistics-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="room_all_number" jdbcType="INTEGER" property="roomAllNumber" />
+    <result column="room_free_number" jdbcType="INTEGER" property="roomFreeNumber" />
+    <result column="room_type" jdbcType="BOOLEAN" property="roomType" />
+    <result column="room_price" jdbcType="DECIMAL" property="roomPrice" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="del_flag" jdbcType="BOOLEAN" property="delFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, room_all_number, room_free_number, room_type, room_price, create_time, update_time, 
+    create_by, update_by, del_flag
+  </sql>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update room_statistics
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="room_all_number = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.roomAllNumber,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="room_free_number = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.roomFreeNumber,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="room_type = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.roomType,jdbcType=BOOLEAN}
+        </foreach>
+      </trim>
+      <trim prefix="room_price = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.roomPrice,jdbcType=DECIMAL}
+        </foreach>
+      </trim>
+      <trim prefix="create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.createTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="update_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.updateTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="create_by = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.createBy,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="update_by = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.updateBy,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="del_flag = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.delFlag,jdbcType=BOOLEAN}
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into room_statistics
+    (id, room_all_number, room_free_number, room_type, room_price, create_time, update_time, 
+      create_by, update_by, del_flag)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=INTEGER}, #{item.roomAllNumber,jdbcType=INTEGER}, #{item.roomFreeNumber,jdbcType=INTEGER}, 
+        #{item.roomType,jdbcType=BOOLEAN}, #{item.roomPrice,jdbcType=DECIMAL}, #{item.createTime,jdbcType=TIMESTAMP}, 
+        #{item.updateTime,jdbcType=TIMESTAMP}, #{item.createBy,jdbcType=VARCHAR}, #{item.updateBy,jdbcType=VARCHAR}, 
+        #{item.delFlag,jdbcType=BOOLEAN})
+    </foreach>
+  </insert>
+</mapper>
