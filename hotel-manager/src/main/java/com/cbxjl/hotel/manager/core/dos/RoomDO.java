@@ -1,9 +1,14 @@
 package com.cbxjl.hotel.manager.core.dos;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.cbxjl.hotel.common.enums.BedType;
 import com.cbxjl.hotel.common.enums.RoomStatus;
 import com.cbxjl.hotel.common.enums.RoomType;
+import com.cbxjl.hotel.common.utils.FileUtils;
+import com.cbxjl.hotel.common.utils.StringUtils;
+import com.cbxjl.hotel.manager.core.dto.RoomEditDTO;
 import com.cbxjl.hotel.manager.core.dto.RoomPageDTO;
+import com.cbxjl.hotel.manager.core.entity.Room;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,8 +16,14 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 客房DO
@@ -26,7 +37,7 @@ import java.util.Date;
 @Builder
 @Slf4j
 public class RoomDO {
-    private Integer id;
+    private Long id;
 
     /**
      * 房间类型（0-平价房，1-豪华房，2-商务，3-无障碍房）
@@ -79,6 +90,12 @@ public class RoomDO {
     private Integer status;
 
     /**
+     * 房间图片
+     */
+    private String img;
+
+
+    /**
      * 床型(1:单人床，2:双人床)
      */
     private Integer bedType;
@@ -104,6 +121,32 @@ public class RoomDO {
         pageDTO.setTypeStr(RoomType.getType(this.getType()));
         pageDTO.setStatusStr(RoomStatus.getType(this.getStatus()));
         pageDTO.setBedTypeStr(BedType.getType(this.getBedType()));
+        if (StringUtils.isNotEmpty(this.getImg())) {
+            List<String> roomPic = Arrays.asList(this.getImg().split(","));
+            pageDTO.setRoomPic(roomPic);
+        } else {
+            pageDTO.setRoomPic(new ArrayList<>());
+        }
+
         return pageDTO;
+    }
+
+    public Room doToPO() {
+        Room room = new Room();
+        BeanUtils.copyProperties(this, room);
+
+        return room;
+    }
+
+    public RoomEditDTO doToEdit() {
+        RoomEditDTO editDTO = new RoomEditDTO();
+        BeanUtils.copyProperties(this, editDTO);
+        if (StringUtils.isNotEmpty(this.getImg())) {
+            List<String> roomPic = Arrays.asList(this.getImg().split(","));
+            editDTO.setRoomPic(roomPic);
+        }else {
+            editDTO.setRoomPic(new ArrayList<>());
+        }
+        return editDTO;
     }
 }

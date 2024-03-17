@@ -1,12 +1,17 @@
 package com.cbxjl.hotel.manager.core.dto;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.cbxjl.hotel.common.exception.BusinessException;
 import com.cbxjl.hotel.manager.core.dos.UserDO;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * 用户增加DTO
@@ -18,6 +23,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Slf4j
 public class UserAddDTO {
     /**
      * 账号
@@ -50,7 +56,7 @@ public class UserAddDTO {
     private String phone;
 
     /**
-     * 头像地址
+     * 头像
      */
     private String avatar;
 

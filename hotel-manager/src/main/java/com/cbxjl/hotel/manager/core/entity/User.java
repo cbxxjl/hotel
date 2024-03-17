@@ -14,9 +14,12 @@ import org.springframework.beans.BeanUtils;
  * 酒店管理人员表
  *
  * @author : cbxjl
- * @date : 2024/1/29 15:46
+ * @date : 2024/3/13 19:07
  */
 
+/**
+ * 酒店管理人员表
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -44,7 +47,7 @@ public class User {
     private String phone;
 
     /**
-     * 性别:0-男，1-女
+     * 性别
      */
     @TableField(value = "sex")
     private Integer sex;
@@ -94,13 +97,13 @@ public class User {
     /**
      * 更新人
      */
-    @TableField(value = "update_by", fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "update_by", fill = FieldFill.UPDATE)
     private String updateBy;
 
     /**
      * 更新时间
      */
-    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "update_time", fill = FieldFill.UPDATE)
     private Date updateTime;
 
     public UserDO poToDo() {

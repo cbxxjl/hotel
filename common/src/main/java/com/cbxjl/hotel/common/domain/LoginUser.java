@@ -42,4 +42,9 @@ public class LoginUser{
      * 联系电话
      */
     private String phone;
+
+    /**
+     * 头像
+     */
+    private String avatar;
 }

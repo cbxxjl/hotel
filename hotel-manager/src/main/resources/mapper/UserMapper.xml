@@ -9,7 +9,7 @@
     <result column="user_type" jdbcType="BOOLEAN" property="userType" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="sex" jdbcType="BOOLEAN" property="sex" />
-    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="avatar" jdbcType="LONGVARCHAR" property="avatar" />
     <result column="account" jdbcType="VARCHAR" property="account" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="status" jdbcType="BOOLEAN" property="status" />
@@ -50,7 +50,7 @@
       </trim>
       <trim prefix="avatar = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
-          when id = #{item.id,jdbcType=BIGINT} then #{item.avatar,jdbcType=VARCHAR}
+          when id = #{item.id,jdbcType=BIGINT} then #{item.avatar,jdbcType=LONGVARCHAR}
         </foreach>
       </trim>
       <trim prefix="account = case" suffix="end,">
@@ -107,7 +107,7 @@
     values
     <foreach collection="list" item="item" separator=",">
       (#{item.userName,jdbcType=VARCHAR}, #{item.userType,jdbcType=BOOLEAN}, #{item.phone,jdbcType=VARCHAR}, 
-        #{item.sex,jdbcType=BOOLEAN}, #{item.avatar,jdbcType=VARCHAR}, #{item.account,jdbcType=VARCHAR}, 
+        #{item.sex,jdbcType=BOOLEAN}, #{item.avatar,jdbcType=LONGVARCHAR}, #{item.account,jdbcType=VARCHAR}, 
         #{item.password,jdbcType=VARCHAR}, #{item.status,jdbcType=BOOLEAN}, #{item.delFlag,jdbcType=BOOLEAN}, 
         #{item.createBy,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateBy,jdbcType=VARCHAR}, 
         #{item.updateTime,jdbcType=TIMESTAMP})

@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
 
 /**
  * @author : cbxjl
- * @date : 2024/3/12 15:01
+ * @date : 2024/3/16 15:10
  */
 @Mapper
 public interface RoomMapper extends BaseMapper<Room> {

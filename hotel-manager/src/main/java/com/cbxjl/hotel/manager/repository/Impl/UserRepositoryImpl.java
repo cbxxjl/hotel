@@ -76,6 +76,23 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     /**
+     * 检查账号是否重复
+     *
+     * @param account 账号
+     * @return 检查结果
+     */
+    @Override
+    public void checkUserByAccount(String account) {
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(StringUtils.isNotEmpty(account), User::getAccount, account);
+        User user = userMapper.selectOne(queryWrapper);
+        if (user != null) {
+            log.error(user.getAccount() + "，账号重复了");
+            throw new BusinessException(user.getAccount() + "，账号重复了");
+        }
+    }
+
+    /**
      * 更新用户信息
      *
      * @param loginUserDO 用户信息

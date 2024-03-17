@@ -31,6 +31,14 @@ public interface UserRepository {
     UserDO getUserByAccount(String account);
 
     /**
+     * 检查账号是否重复
+     *
+     * @param account 账号
+     * @return 检查结果
+     */
+    void checkUserByAccount(String account);
+
+    /**
      * 更新用户信息
      *
      * @param loginUserDO 用户信息

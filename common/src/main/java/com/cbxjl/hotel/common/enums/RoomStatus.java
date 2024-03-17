@@ -32,6 +32,6 @@ public enum RoomStatus {
             }
         }
         log.error("错误的房间状态：{}", num);
-        throw new BusinessException("错误的房间类型");
+        throw new BusinessException("错误的房间状态");
     }
 }

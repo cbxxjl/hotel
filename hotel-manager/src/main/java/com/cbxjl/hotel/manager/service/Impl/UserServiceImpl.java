@@ -63,6 +63,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public void addUser(UserAddDTO userAddDTO) {
         UserDO userDO = userAddDTO.addToDo();
+        userRepository.checkUserByAccount(userDO.getAccount());
         userRepository.addUser(userDO);
     }
 
@@ -87,6 +88,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public void update(UserEditDTO userEditDTO) {
         UserDO userDO = userEditDTO.editToDo();
+        userRepository.checkUserByAccount(userDO.getAccount());
         userRepository.update(userDO);
     }
 
