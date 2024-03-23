@@ -2,8 +2,10 @@ package com.cbxjl.hotel.manager.controller;
 
 import com.cbxjl.hotel.common.annotations.CheckUserType;
 import com.cbxjl.hotel.common.constant.UserTypeConstants;
+import com.cbxjl.hotel.common.domain.KeyValueDTO;
 import com.cbxjl.hotel.common.domain.PageResult;
 import com.cbxjl.hotel.common.domain.R;
+import com.cbxjl.hotel.common.domain.ValueLabelDTO;
 import com.cbxjl.hotel.manager.core.dto.RoomAddDTO;
 import com.cbxjl.hotel.manager.core.dto.RoomEditDTO;
 import com.cbxjl.hotel.manager.core.dto.RoomPageDTO;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * 客房 相关接口
@@ -77,4 +80,29 @@ public class RoomController {
         roomService.update(roomEditDTO);
         return R.ok("编辑成功");
     }
+
+    /**
+     * （批量）删除
+     *
+     * @param ids 房间id
+     * @return 删除结果
+     */
+    @PostMapping("/delete")
+    public R<Void> delete(@RequestBody List<Long> ids) {
+        roomService.delete(ids);
+        return R.ok("删除成功");
+    }
+
+    /**
+     * 获取房间列表 （下拉二级菜单）
+     *
+     * @param status 房间状态（0：空闲，1：已预定，2；已入住，3；未清洁，4：查询全部）
+     * @return 房间下拉框
+     */
+    @GetMapping("/getFloorWithRoomList/{status}")
+    public R<List<ValueLabelDTO>> getFloorWithRoomList(@PathVariable Integer status) {
+        List<ValueLabelDTO> floorWithRoomList = roomService.getFloorWithRoomList(status);
+        return R.ok(floorWithRoomList);
+    }
+
 }

@@ -3,6 +3,7 @@ package com.cbxjl.hotel.manager.repository.Impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.Query;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cbxjl.hotel.common.enums.RoomStatus;
 import com.cbxjl.hotel.common.exception.BusinessException;
 import com.cbxjl.hotel.common.utils.SnowIdUtils;
 import com.cbxjl.hotel.common.utils.StringUtils;
@@ -17,6 +18,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.sql.Struct;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 客房仓储实现类
@@ -121,5 +125,58 @@ public class RoomRepositoryImpl implements RoomRepository {
     public void update(RoomDO roomDO) {
         Room room = roomDO.doToPO();
         roomMapper.updateById(room);
+    }
+
+    /**
+     * （批量） 删除
+     *
+     * @param ids 房间id
+     */
+    @Override
+    public void delete(List<Long> ids) {
+        List<Room> rooms = roomMapper.selectBatchIds(ids);
+        rooms.forEach(item -> {
+            //已预定 已入住 的房间不允许删除
+            if (item.getStatus() == 1 || item.getStatus() == 2) {
+                log.error("已预定/已入住的房间不允许删除");
+                throw new BusinessException("已预定/已入住的房间不允许删除");
+            }
+        });
+        roomMapper.deleteBatchIds(ids);
+    }
+
+    /**
+     * 获取房间列表
+     *
+     * @param status 房间状态（0：空闲，1：已预定，2；已入住，3；未清洁，4：查询全部）
+     * @return 房间列表
+     */
+    @Override
+    public List<RoomDO> getRoomList(Integer status) {
+        LambdaQueryWrapper<Room> queryWrapper = new LambdaQueryWrapper<>();
+        List<Room> rooms;
+        //如果不是查询全部，那么按状态查询
+        if (status != 4) {
+            queryWrapper.eq(Room::getStatus, status);
+            rooms = roomMapper.selectList(queryWrapper);
+            if (rooms.isEmpty()) {
+                log.error("房间列表为空");
+                throw new BusinessException("\"" + RoomStatus.getType(status) + "\"的房间没有了");
+            }
+        }else {
+            rooms = roomMapper.selectList(queryWrapper);
+        }
+        return rooms.stream().map(Room::poToDO).collect(Collectors.toList());
+    }
+
+    /**
+     * 获取所有楼层
+     *
+     * @return 楼层列表
+     */
+    @Override
+    public List<String> getFloor() {
+        List<String> floorList = roomMapper.getFloor();
+        return floorList;
     }
 }

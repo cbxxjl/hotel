@@ -38,6 +38,6 @@ public class GlobalExceptionHandler implements ResponseBodyAdvice<Object> {
     public R<?> handleBusinessException(BusinessException e, HttpServletRequest request) {
         String requestURI = request.getRequestURI();
         log.error("请求地址'{}',{}'", requestURI, e.getMessage());
-        return R.fail(e.getMessage());
+        return R.fail(e.getCode(), e.getMessage());
     }
 }

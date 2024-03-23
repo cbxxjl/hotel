@@ -33,7 +33,7 @@ public class CheckUserTypeAspect {
         //遍历结束标志位仍为1,则说明无权访问
         if ((flag == 1)) {
             log.error("当前用户无权访问，{}", StpUtil.getRoleList());
-            throw new BusinessException("当前用户无权访问");
+            throw new BusinessException("当前用户无权访问", 401);
         }
     }
 }

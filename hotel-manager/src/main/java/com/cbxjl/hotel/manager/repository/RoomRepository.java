@@ -5,6 +5,8 @@ import com.cbxjl.hotel.manager.core.dos.RoomDO;
 import com.cbxjl.hotel.manager.core.dto.RoomPageParam;
 import com.cbxjl.hotel.manager.core.entity.Room;
 
+import java.util.List;
+
 /**
  * 客房仓储
  *
@@ -57,4 +59,26 @@ public interface RoomRepository {
      * @param roomDO 房间DO
      */
     void update(RoomDO roomDO);
+
+    /**
+     * （批量） 删除
+     *
+     * @param ids 房间id
+     */
+    void delete(List<Long> ids);
+
+    /**
+     * 获取房间列表
+     *
+     * @param status 房间状态（0：空闲，1：已预定，2；已入住，3；未清洁，4：查询全部）
+     * @return 房间列表
+     */
+    List<RoomDO> getRoomList(Integer status);
+
+    /**
+     * 获取所有楼层
+     *
+     * @return 楼层列表
+     */
+    List<String> getFloor();
 }

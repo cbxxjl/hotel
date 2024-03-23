@@ -134,4 +134,15 @@ public class UserController {
         userService.changePwd(userPwdDTO);
         return R.ok("修改密码成功");
     }
+
+    /**
+     * 获取后勤员工列表 （下拉框）
+     *
+     * @return 后勤员工列表
+     */
+    @GetMapping("/getUserList")
+    public R<List<KeyValueDTO>> getUserList() {
+        List<KeyValueDTO> keyValueDTOList = userService.getLogisticsList();
+        return R.ok(keyValueDTOList);
+    }
 }

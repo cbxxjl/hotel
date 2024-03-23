@@ -126,4 +126,10 @@
         #{item.describe,jdbcType=VARCHAR})
     </foreach>
   </insert>
+
+  <select id="getFloor" resultType="java.lang.String">
+      SELECT DISTINCT SUBSTRING_INDEX(number, '-', 1) AS floor
+      FROM room
+      ORDER BY floor ASC;
+  </select>
 </mapper>

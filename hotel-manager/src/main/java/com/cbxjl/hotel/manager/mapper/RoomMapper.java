@@ -17,4 +17,6 @@ public interface RoomMapper extends BaseMapper<Room> {
     int updateBatch(List<Room> list);
 
     int batchInsert(@Param("list") List<Room> list);
+
+    List<String> getFloor();
 }

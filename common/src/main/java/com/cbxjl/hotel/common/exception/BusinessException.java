@@ -1,6 +1,7 @@
 package com.cbxjl.hotel.common.exception;
 
 
+import com.cbxjl.hotel.common.domain.R;
 import com.cbxjl.hotel.common.enums.ResultEnum;
 
 /**
@@ -46,6 +47,12 @@ public class BusinessException extends RuntimeException {
     public BusinessException(String errorMessage) {
         super(errorMessage);
         this.code = 500;
+        this.errorMessage = errorMessage;
+    }
+
+    public BusinessException(String errorMessage, Integer code) {
+        super(errorMessage);
+        this.code = code;
         this.errorMessage = errorMessage;
     }
 

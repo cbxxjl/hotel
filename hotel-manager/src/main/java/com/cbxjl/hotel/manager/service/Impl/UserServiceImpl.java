@@ -4,6 +4,7 @@ import cn.dev33.satoken.secure.BCrypt;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cbxjl.hotel.common.constant.CacheConstants;
+import com.cbxjl.hotel.common.domain.KeyValueDTO;
 import com.cbxjl.hotel.common.domain.LoginUser;
 import com.cbxjl.hotel.common.exception.BusinessException;
 import com.cbxjl.hotel.common.utils.redis.RedisUtils;
@@ -109,6 +110,7 @@ public class UserServiceImpl implements UserService {
      * @param id 用户id
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void resetPwd(Long id) {
         UserDO userDO = userRepository.getUserById(id);
         userDO.setPassword(BCrypt.hashpw("123456"));
@@ -152,5 +154,13 @@ public class UserServiceImpl implements UserService {
         userRepository.update(userDO);
     }
 
-
+    /**
+     * 获取后勤员工列表
+     *
+     * @return 后勤员工列表
+     */
+    @Override
+    public List<KeyValueDTO> getLogisticsList() {
+        return userRepository.getLogisticsList();
+    }
 }

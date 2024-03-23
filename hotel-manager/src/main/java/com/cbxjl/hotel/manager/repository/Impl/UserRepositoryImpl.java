@@ -6,6 +6,7 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cbxjl.hotel.common.domain.KeyValueDTO;
 import com.cbxjl.hotel.common.domain.LoginUser;
 import com.cbxjl.hotel.common.exception.BusinessException;
 import com.cbxjl.hotel.common.utils.SnowIdUtils;
@@ -22,6 +23,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Queue;
+import java.util.stream.Collectors;
 
 /**
  * 用户仓储实现类
@@ -161,5 +165,22 @@ public class UserRepositoryImpl implements UserRepository {
         }
         user.setDelFlag(1);
         userMapper.updateById(user);
+    }
+
+    /**
+     * 获取后勤员工列表
+     *
+     * @return 后勤员工列表
+     */
+    @Override
+    public List<KeyValueDTO> getLogisticsList() {
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        //后勤
+        queryWrapper.eq(User::getUserType, 4);
+        List<User> users = userMapper.selectList(queryWrapper);
+
+        return users.stream().map(item ->
+                new KeyValueDTO(item.getId(), item.getUserName())
+        ).collect(Collectors.toList());
     }
 }

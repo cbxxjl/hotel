@@ -4,18 +4,15 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
+import java.math.BigDecimal;
 import java.util.Date;
-
-import lombok.AllArgsConstructor;
+import com.cbxjl.hotel.manager.core.dos.CheckInRecordDO;import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.NoArgsConstructor;import org.springframework.beans.BeanUtils;
 
 /**
- * 入住记录
- *
  * @author : cbxjl
- * @date : 2024/3/11 18:46
+ * @date : 2024/3/20 16:47
  */
 @Data
 @AllArgsConstructor
@@ -23,19 +20,19 @@ import lombok.NoArgsConstructor;
 @TableName(value = "check_in_record")
 public class CheckInRecord {
     @TableId(value = "id", type = IdType.INPUT)
-    private Integer id;
+    private Long id;
 
     /**
-     * 住户id
+     * 房客ids
      */
-    @TableField(value = "guest_id")
-    private Integer guestId;
+    @TableField(value = "guest_ids")
+    private String guestIds;
 
     /**
-     * 房间id
+     * 房间号
      */
-    @TableField(value = "room_id")
-    private Integer roomId;
+    @TableField(value = "room_number")
+    private String roomNumber;
 
     /**
      * 入住时间
@@ -54,6 +51,12 @@ public class CheckInRecord {
      */
     @TableField(value = "check_out_real_time")
     private Date checkOutRealTime;
+
+    /**
+     * 费用
+     */
+    @TableField(value = "pay")
+    private BigDecimal pay;
 
     /**
      * 创建时间
@@ -78,4 +81,11 @@ public class CheckInRecord {
      */
     @TableField(value = "update_by")
     private String updateBy;
+
+    public CheckInRecordDO poToDo() {
+        CheckInRecordDO checkInRecordDO = new CheckInRecordDO();
+        BeanUtils.copyProperties(this, checkInRecordDO);
+
+        return checkInRecordDO;
+    }
 }

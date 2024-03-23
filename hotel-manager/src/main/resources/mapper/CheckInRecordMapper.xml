@@ -4,12 +4,13 @@
   <resultMap id="BaseResultMap" type="com.cbxjl.hotel.manager.core.entity.CheckInRecord">
     <!--@mbg.generated-->
     <!--@Table check_in_record-->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="guest_id" jdbcType="INTEGER" property="guestId" />
-    <result column="room_id" jdbcType="INTEGER" property="roomId" />
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="guest_ids" jdbcType="VARCHAR" property="guestIds" />
+    <result column="room_number" jdbcType="VARCHAR" property="roomNumber" />
     <result column="check_in_time" jdbcType="TIMESTAMP" property="checkInTime" />
     <result column="check_out_time" jdbcType="TIMESTAMP" property="checkOutTime" />
     <result column="check_out_real_time" jdbcType="TIMESTAMP" property="checkOutRealTime" />
+    <result column="pay" jdbcType="DECIMAL" property="pay" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="create_by" jdbcType="VARCHAR" property="createBy" />
@@ -17,74 +18,79 @@
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, guest_id, room_id, check_in_time, check_out_time, check_out_real_time, create_time, 
-    update_time, create_by, update_by
+    id, guest_ids, room_number, check_in_time, check_out_time, check_out_real_time, pay, 
+    create_time, update_time, create_by, update_by
   </sql>
   <update id="updateBatch" parameterType="java.util.List">
     <!--@mbg.generated-->
     update check_in_record
     <trim prefix="set" suffixOverrides=",">
-      <trim prefix="guest_id = case" suffix="end,">
+      <trim prefix="guest_ids = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
-          when id = #{item.id,jdbcType=INTEGER} then #{item.guestId,jdbcType=INTEGER}
+          when id = #{item.id,jdbcType=BIGINT} then #{item.guestIds,jdbcType=VARCHAR}
         </foreach>
       </trim>
-      <trim prefix="room_id = case" suffix="end,">
+      <trim prefix="room_number = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
-          when id = #{item.id,jdbcType=INTEGER} then #{item.roomId,jdbcType=INTEGER}
+          when id = #{item.id,jdbcType=BIGINT} then #{item.roomNumber,jdbcType=VARCHAR}
         </foreach>
       </trim>
       <trim prefix="check_in_time = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
-          when id = #{item.id,jdbcType=INTEGER} then #{item.checkInTime,jdbcType=TIMESTAMP}
+          when id = #{item.id,jdbcType=BIGINT} then #{item.checkInTime,jdbcType=TIMESTAMP}
         </foreach>
       </trim>
       <trim prefix="check_out_time = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
-          when id = #{item.id,jdbcType=INTEGER} then #{item.checkOutTime,jdbcType=TIMESTAMP}
+          when id = #{item.id,jdbcType=BIGINT} then #{item.checkOutTime,jdbcType=TIMESTAMP}
         </foreach>
       </trim>
       <trim prefix="check_out_real_time = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
-          when id = #{item.id,jdbcType=INTEGER} then #{item.checkOutRealTime,jdbcType=TIMESTAMP}
+          when id = #{item.id,jdbcType=BIGINT} then #{item.checkOutRealTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="pay = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.pay,jdbcType=DECIMAL}
         </foreach>
       </trim>
       <trim prefix="create_time = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
-          when id = #{item.id,jdbcType=INTEGER} then #{item.createTime,jdbcType=TIMESTAMP}
+          when id = #{item.id,jdbcType=BIGINT} then #{item.createTime,jdbcType=TIMESTAMP}
         </foreach>
       </trim>
       <trim prefix="update_time = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
-          when id = #{item.id,jdbcType=INTEGER} then #{item.updateTime,jdbcType=TIMESTAMP}
+          when id = #{item.id,jdbcType=BIGINT} then #{item.updateTime,jdbcType=TIMESTAMP}
         </foreach>
       </trim>
       <trim prefix="create_by = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
-          when id = #{item.id,jdbcType=INTEGER} then #{item.createBy,jdbcType=VARCHAR}
+          when id = #{item.id,jdbcType=BIGINT} then #{item.createBy,jdbcType=VARCHAR}
         </foreach>
       </trim>
       <trim prefix="update_by = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
-          when id = #{item.id,jdbcType=INTEGER} then #{item.updateBy,jdbcType=VARCHAR}
+          when id = #{item.id,jdbcType=BIGINT} then #{item.updateBy,jdbcType=VARCHAR}
         </foreach>
       </trim>
     </trim>
     where id in
     <foreach close=")" collection="list" item="item" open="(" separator=", ">
-      #{item.id,jdbcType=INTEGER}
+      #{item.id,jdbcType=BIGINT}
     </foreach>
   </update>
   <insert id="batchInsert" parameterType="map">
     <!--@mbg.generated-->
     insert into check_in_record
-    (id, guest_id, room_id, check_in_time, check_out_time, check_out_real_time, create_time, 
-      update_time, create_by, update_by)
+    (id, guest_ids, room_number, check_in_time, check_out_time, check_out_real_time, 
+      pay, create_time, update_time, create_by, update_by)
     values
     <foreach collection="list" item="item" separator=",">
-      (#{item.id,jdbcType=INTEGER}, #{item.guestId,jdbcType=INTEGER}, #{item.roomId,jdbcType=INTEGER}, 
+      (#{item.id,jdbcType=BIGINT}, #{item.guestIds,jdbcType=VARCHAR}, #{item.roomNumber,jdbcType=VARCHAR}, 
         #{item.checkInTime,jdbcType=TIMESTAMP}, #{item.checkOutTime,jdbcType=TIMESTAMP}, 
-        #{item.checkOutRealTime,jdbcType=TIMESTAMP}, #{item.createTime,jdbcType=TIMESTAMP}, 
+        #{item.checkOutRealTime,jdbcType=TIMESTAMP}, #{item.pay,jdbcType=DECIMAL}, #{item.createTime,jdbcType=TIMESTAMP}, 
         #{item.updateTime,jdbcType=TIMESTAMP}, #{item.createBy,jdbcType=VARCHAR}, #{item.updateBy,jdbcType=VARCHAR}
         )
     </foreach>

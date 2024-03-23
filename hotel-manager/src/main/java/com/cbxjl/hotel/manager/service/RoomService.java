@@ -1,10 +1,14 @@
 package com.cbxjl.hotel.manager.service;
 
+import com.cbxjl.hotel.common.domain.KeyValueDTO;
 import com.cbxjl.hotel.common.domain.PageResult;
+import com.cbxjl.hotel.common.domain.ValueLabelDTO;
 import com.cbxjl.hotel.manager.core.dto.RoomAddDTO;
 import com.cbxjl.hotel.manager.core.dto.RoomEditDTO;
 import com.cbxjl.hotel.manager.core.dto.RoomPageDTO;
 import com.cbxjl.hotel.manager.core.dto.RoomPageParam;
+
+import java.util.List;
 
 /**
  * 客房服务
@@ -43,4 +47,18 @@ public interface RoomService {
      * @param roomEditDTO 房间编辑DTO
      */
     void update(RoomEditDTO roomEditDTO);
+
+    /**
+     * （批量） 删除
+     *
+     * @param ids 房间id
+     */
+    void delete(List<Long> ids);
+
+    /**
+     * 获取房间列表
+     *
+     * @return 房间列表
+     */
+    List<ValueLabelDTO> getFloorWithRoomList(Integer status);
 }

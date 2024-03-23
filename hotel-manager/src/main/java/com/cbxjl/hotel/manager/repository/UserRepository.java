@@ -1,11 +1,14 @@
 package com.cbxjl.hotel.manager.repository;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cbxjl.hotel.common.domain.KeyValueDTO;
 import com.cbxjl.hotel.manager.core.dos.UserDO;
 import com.cbxjl.hotel.manager.core.dto.UserAddDTO;
 import com.cbxjl.hotel.manager.core.entity.User;
 import com.cbxjl.hotel.manager.core.dto.UserPageParam;
 import dos.LoginUserDO;
+
+import java.util.List;
 
 /**
  * 用户仓储
@@ -73,4 +76,11 @@ public interface UserRepository {
      * @param id 用户id
      */
     void delete(Long id);
+
+    /**
+     * 获取后勤员工列表
+     *
+     * @return 后勤员工列表
+     */
+    List<KeyValueDTO> getLogisticsList();
 }

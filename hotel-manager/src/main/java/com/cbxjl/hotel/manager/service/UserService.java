@@ -1,5 +1,6 @@
 package com.cbxjl.hotel.manager.service;
 
+import com.cbxjl.hotel.common.domain.KeyValueDTO;
 import com.cbxjl.hotel.common.domain.PageResult;
 import com.cbxjl.hotel.manager.core.dto.*;
 
@@ -63,4 +64,11 @@ public interface UserService {
      * @param userPwdDTO 用户密码DTO
      */
     void changePwd(UserPwdDTO userPwdDTO);
+
+    /**
+     * 获取后勤员工列表
+     *
+     * @return 后勤员工列表
+     */
+    List<KeyValueDTO> getLogisticsList();
 }

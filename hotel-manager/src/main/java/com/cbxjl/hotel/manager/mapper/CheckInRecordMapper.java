@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
 
 /**
  * @author : cbxjl
- * @date : 2024/3/11 18:46
+ * @date : 2024/3/20 16:47
  */
 @Mapper
 public interface CheckInRecordMapper extends BaseMapper<CheckInRecord> {
