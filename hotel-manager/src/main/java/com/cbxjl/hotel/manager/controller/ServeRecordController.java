@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.Map;
 
 /**
  * 客房服务记录相关接口
@@ -102,6 +103,19 @@ public class ServeRecordController {
     @CheckUserType(value = {UserTypeConstants.ADMINISTRATOR, UserTypeConstants.RECEPTIONDESK})
     public R<Void> delete(@PathVariable Long id) {
         serveRecordService.delete(id);
+        return R.ok();
+    }
+
+    /**
+     * 派遣人员
+     *
+     * @param map 服务id ，人员id
+     * @return 派遣结果
+     */
+    @PostMapping("/arrange")
+    @CheckUserType(value = {UserTypeConstants.LOGISTICS, UserTypeConstants.ADMINISTRATOR})
+    public R<Void> arrange(@RequestBody Map<String, Long> map) {
+        serveRecordService.arrange(map);
         return R.ok();
     }
 }

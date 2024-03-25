@@ -21,6 +21,7 @@ import org.springframework.ui.context.Theme;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -50,8 +51,12 @@ public class ServeRecordServiceImpl implements ServeRecordService {
         List<ServeRecordDO> doList = records.stream().map(ServeRecord::poToDo).collect(Collectors.toList());
         List<ServeRecordPageDTO> dtoList = doList.stream().map(item -> {
             ServeRecordPageDTO serveRecordPageDTO = item.doToPage();
-            UserDO userDO = userRepository.getUserById(item.getUserId());
-            serveRecordPageDTO.setUserName(userDO.getUserName());
+            try {
+                UserDO userDO = userRepository.getUserById(item.getUserId());
+                serveRecordPageDTO.setUserName(userDO.getUserName());
+            }catch (BusinessException e) {
+                serveRecordPageDTO.setUserName(null);
+            }
             return serveRecordPageDTO;
         }).collect(Collectors.toList());
 
@@ -124,5 +129,24 @@ public class ServeRecordServiceImpl implements ServeRecordService {
             log.error("该服务已经开始，无法删除：{}" , id);
             throw new BusinessException("该服务已经开始，无法删除");
         }
+    }
+
+    /**
+     * 派遣人员
+     *
+     * @param map 派遣结果
+     */
+    @Override
+    public void arrange(Map<String, Long> map) {
+        Long id = map.get("id");
+        Long userId = map.get("userId");
+        ServeRecordDO serveRecordDO = serveRecordRepository.getById(id);
+
+        //设置员工id、服务状态、服务开始时间
+        serveRecordDO.setUserId(userId);
+        serveRecordDO.setStatus(1);
+        serveRecordDO.setServeStart(new Date());
+
+        serveRecordRepository.update(serveRecordDO);
     }
 }

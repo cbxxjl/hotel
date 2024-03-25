@@ -10,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +36,12 @@ public class CheckInAddDTO {
      */
     @NotBlank(message = "房间号不能为空")
     private String roomNumber;
+
+    /**
+     * 费用
+     */
+    @NotNull(message = "费用不能为空")
+    private BigDecimal pay;
 
     /**
      * 入住时间

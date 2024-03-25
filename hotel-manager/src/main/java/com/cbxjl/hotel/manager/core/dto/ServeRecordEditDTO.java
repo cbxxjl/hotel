@@ -35,7 +35,6 @@ public class ServeRecordEditDTO {
     /**
      * 员工id
      */
-    @NotNull(message = "派遣的员工不能为空")
     @JsonSerialize(using = ToStringSerializer.class)
     private Long userId;
 

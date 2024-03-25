@@ -30,13 +30,6 @@ public class ServeRecordAddDTO {
     private String roomNumber;
 
     /**
-     * 员工id
-     */
-    @NotNull(message = "派遣的员工不能为空")
-    @JsonSerialize(using = ToStringSerializer.class)
-    private Long userId;
-
-    /**
      * 服务类型（0-清洁 1-送餐 2-补充房间物品）
      */
     @NotNull(message = "服务类型不能为空")

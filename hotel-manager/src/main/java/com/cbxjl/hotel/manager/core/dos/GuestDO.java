@@ -1,6 +1,7 @@
 package com.cbxjl.hotel.manager.core.dos;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.cbxjl.hotel.manager.core.dto.GuestPageDTO;
 import com.cbxjl.hotel.manager.core.entity.Guest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -80,5 +81,20 @@ public class GuestDO {
         BeanUtils.copyProperties(this, guest);
 
         return guest;
+    }
+
+    public GuestPageDTO doToPage() {
+        GuestPageDTO guestPageDTO = new GuestPageDTO();
+        BeanUtils.copyProperties(this, guestPageDTO);
+        guestPageDTO.setSexStr(this.getSex() == 0 ? "男" : "女");
+        guestPageDTO.setLevelStr("VIP" + this.getLevel());
+        //身份证不完全显示
+        // 提取前4位
+        String frontDigits = this.getCardNum().substring(0, 4);
+        // 提取后4位
+        String backDigits = this.getCardNum().substring(this.getCardNum().length() - 4);
+
+        guestPageDTO.setCardNum(frontDigits + "****" + backDigits);
+        return guestPageDTO;
     }
 }

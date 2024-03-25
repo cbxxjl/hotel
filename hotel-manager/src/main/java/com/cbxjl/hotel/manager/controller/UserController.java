@@ -140,8 +140,8 @@ public class UserController {
      *
      * @return 后勤员工列表
      */
-    @GetMapping("/getUserList")
-    public R<List<KeyValueDTO>> getUserList() {
+    @GetMapping("/getLogisticsList")
+    public R<List<KeyValueDTO>> getLogisticsList() {
         List<KeyValueDTO> keyValueDTOList = userService.getLogisticsList();
         return R.ok(keyValueDTOList);
     }

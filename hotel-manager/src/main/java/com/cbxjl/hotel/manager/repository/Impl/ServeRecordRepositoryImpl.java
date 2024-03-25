@@ -41,7 +41,7 @@ public class ServeRecordRepositoryImpl implements ServeRecordRepository {
         queryWrapper.eq(pageParam.getUserId() != null, ServeRecord::getUserId, pageParam.getUserId());
         queryWrapper.eq(pageParam.getServeType() != null, ServeRecord::getServeType, pageParam.getServeType());
         queryWrapper.ge(pageParam.getServeStart() != null, ServeRecord::getServeStart, pageParam.getServeStart());
-        queryWrapper.le(pageParam.getServeEnd() != null, ServeRecord::getServeEnd, pageParam.getServeEnd());
+        queryWrapper.le(pageParam.getServeEnd() != null, ServeRecord::getServeStart, pageParam.getServeEnd());
         queryWrapper.orderByDesc(ServeRecord::getCreateTime);
 
         return serveRecordMapper.selectPage(page, queryWrapper);

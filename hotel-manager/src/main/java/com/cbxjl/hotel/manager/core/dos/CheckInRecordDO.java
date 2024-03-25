@@ -1,6 +1,8 @@
 package com.cbxjl.hotel.manager.core.dos;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.cbxjl.hotel.manager.core.dto.CheckInDetailDTO;
+import com.cbxjl.hotel.manager.core.dto.CheckInPageDTO;
 import com.cbxjl.hotel.manager.core.entity.CheckInRecord;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -81,5 +83,21 @@ public class CheckInRecordDO {
         BeanUtils.copyProperties(this, checkInRecord);
 
         return checkInRecord;
+    }
+
+    public CheckInPageDTO doToPage() {
+        CheckInPageDTO checkInPageDTO = new CheckInPageDTO();
+        BeanUtils.copyProperties(this, checkInPageDTO);
+        String[] ids = this.getGuestIds().split(",");
+        checkInPageDTO.setGuestNum(ids.length);
+
+        return checkInPageDTO;
+    }
+
+    public CheckInDetailDTO doToDetail() {
+        CheckInDetailDTO checkInDetailDTO = new CheckInDetailDTO();
+        BeanUtils.copyProperties(this, checkInDetailDTO);
+
+        return checkInDetailDTO;
     }
 }

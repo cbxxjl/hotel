@@ -1,6 +1,9 @@
 package com.cbxjl.hotel.manager.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cbxjl.hotel.manager.core.dos.CheckInRecordDO;
+import com.cbxjl.hotel.manager.core.dto.CheckInPageParam;
 import com.cbxjl.hotel.manager.core.entity.CheckInRecord;
 
 import java.util.List;
@@ -17,4 +20,6 @@ public interface CheckInRecordMapper extends BaseMapper<CheckInRecord> {
     int updateBatch(List<CheckInRecord> list);
 
     int batchInsert(@Param("list") List<CheckInRecord> list);
+
+    Page<CheckInRecordDO> listPage(Page<CheckInRecordDO> page, CheckInPageParam pageParam);
 }

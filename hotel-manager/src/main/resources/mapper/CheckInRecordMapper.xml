@@ -95,4 +95,41 @@
         )
     </foreach>
   </insert>
+
+  <select id="listPage" resultType="com.cbxjl.hotel.manager.core.dos.CheckInRecordDO">
+      SELECT r.number                as roomNumber,
+             cir.check_in_time       as checkInTime,
+             cir.check_out_time       as checkOutTIme,
+             cir.check_out_real_time as checkOutRealTime,
+             cir.guest_ids           as guestIds,
+             cir.pay                 as pay
+      FROM room r
+               JOIN check_in_record cir
+                    ON r.number = cir.room_number
+      <where>
+        <if test="param2.roomNumber != null and param2.roomNumber != '' ">
+           and r.number LIKE CONCAT('%', #{param2.roomNumber}, '%')
+        </if>
+        <if test="param2.roomType != null">
+            and r.type = #{param2.roomType}
+        </if>
+        <if test="param2.status != null and param2.status == 0">
+            and cir.check_out_time &lt;= NOW()
+            and cir.check_out_real_time IS NULL
+        </if>
+        <if test="param2.status != null and param2.status == 1">
+            and cir.check_out_time &gt;= NOW()
+        </if>
+        <if test="param2.status != null and param2.status == 2">
+            and cir.check_out_real_time IS NOT NULL
+        </if>
+        <if test="param2.checkInTimeStart != null">
+            and cir.check_in_time &gt;= #{param2.checkInTimeStart}
+        </if>
+        <if test="param2.checkInTimeEnd != null">
+            and cir.check_in_time &lt;= #{param2.checkInTimeEnd}
+        </if>
+      </where>
+    order by cir.create_time DESC
+  </select>
 </mapper>

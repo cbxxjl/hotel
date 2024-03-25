@@ -316,11 +316,26 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
             return new ArrayList<>(0);
         }
         return StrUtil.split(str, separator)
-            .stream()
-            .filter(Objects::nonNull)
-            .map(mapper)
-            .collect(Collectors.toList());
+                .stream()
+                .filter(Objects::nonNull)
+                .map(mapper)
+                .collect(Collectors.toList());
     }
 
+    /**
+     * 将字符串拼接成的id列表，拆分为List<Long>类型
+     *
+     * @param ids 字符id
+     * @param str 分隔符
+     * @return List<Long>类型
+     */
+    public static List<Long> splitToIds(String ids, String str) {
+        String[] split = ids.split(str);
+        // 将字符串转换为长整型
+
+        return Arrays.stream(split)
+                .map(Long::parseLong)
+                .collect(Collectors.toList());
+    }
 
 }

@@ -6,6 +6,8 @@ import com.cbxjl.hotel.manager.core.dto.ServeRecordEditDTO;
 import com.cbxjl.hotel.manager.core.dto.ServeRecordPageDTO;
 import com.cbxjl.hotel.manager.core.dto.ServeRecordPageParam;
 
+import java.util.Map;
+
 /**
  * 客房服务记录 服务
  *
@@ -56,4 +58,11 @@ public interface ServeRecordService {
      * @param id
      */
     void delete(Long id);
+
+    /**
+     * 派遣人员
+     *
+     * @param map 派遣结果
+     */
+    void arrange(Map<String, Long> map);
 }

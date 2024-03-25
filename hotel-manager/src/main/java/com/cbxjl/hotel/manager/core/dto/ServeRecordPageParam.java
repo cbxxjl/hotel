@@ -24,12 +24,12 @@ public class ServeRecordPageParam extends PageParams {
     private Integer serveType;
 
     /**
-     * 服务开始时间
+     * 服务开始 起始时间
      */
     private Date serveStart;
 
     /**
-     * 服务结束时间
+     * 服务开始 结束时间
      */
     private Date serveEnd;
 

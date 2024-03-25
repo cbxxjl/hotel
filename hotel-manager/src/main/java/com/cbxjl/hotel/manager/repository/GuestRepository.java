@@ -1,6 +1,11 @@
 package com.cbxjl.hotel.manager.repository;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cbxjl.hotel.manager.core.dos.GuestDO;
+import com.cbxjl.hotel.manager.core.dto.GuestPageParam;
+import com.cbxjl.hotel.manager.core.entity.Guest;
+
+import java.util.List;
 
 /**
  * 客户仓储
@@ -32,4 +37,28 @@ public interface GuestRepository {
      * @return 客户信息
      */
     GuestDO getByCardNum(String cardNum);
+
+    /**
+     * 客户分页查询
+     *
+     * @param param 分页查询参数
+     * @return 分页查询结果
+     */
+    Page<Guest> listPage(GuestPageParam param);
+
+    /**
+     * 根据id查询客户
+     *
+     * @param ids 客户id
+     * @return 客户列表
+     */
+    List<GuestDO> getGuestById(List<Long> ids);
+
+    /**
+     * 根据id查询客户
+     *
+     * @param id 客户id
+     * @return 客户
+     */
+    GuestDO getGuestById(Long id);
 }
